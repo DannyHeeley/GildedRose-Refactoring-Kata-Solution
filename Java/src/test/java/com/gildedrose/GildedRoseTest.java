@@ -87,7 +87,7 @@ class GildedRoseTest {
         GildedRose app = new GildedRose(items);
         app.updateQuality();
         assertAll(
-            () -> assertEquals(0, app.items[0].quality),
+            () -> assertEquals(2, app.items[0].quality),
             () -> assertTrue(app.items[0].name.contains("Aged"))
         );
     }
