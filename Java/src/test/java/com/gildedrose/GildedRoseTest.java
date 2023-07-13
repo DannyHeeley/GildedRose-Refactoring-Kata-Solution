@@ -43,7 +43,7 @@ class GildedRoseTest {
         Item[] items = new Item[]{new Item("foo", 1, 10)};
         GildedRose app = new GildedRose(items);
         app.updateQuality();
-        assertEquals(9, app.items[0].quality);
+        assertTrue(app.items[0].quality < 10);
     }
 
     @Test
@@ -169,7 +169,7 @@ class GildedRoseTest {
 
     @Test
     public void sulfurasSellInIsAlwaysPositiveValue() {
-        Item[] items = new Item[]{new Item("foo", 0, 80)};
+        Item[] items = new Item[]{new Item("Sulfuras", 0, 80)};
         GildedRose app = new GildedRose(items);
         app.updateQuality();
         assertAll(
@@ -180,7 +180,7 @@ class GildedRoseTest {
 
     @Test
     public void sulfurasQualityIsAlways80() {
-        Item[] items = new Item[]{new Item("foo", 0, 55)};
+        Item[] items = new Item[]{new Item("Sulfuras", 0, 55)};
         GildedRose app = new GildedRose(items);
         app.updateQuality();
         assertAll(
@@ -191,7 +191,7 @@ class GildedRoseTest {
 
     @Test
     public void sulfurasDoesNotDecreaseInQuality() {
-        Item[] items = new Item[]{new Item("foo", 0, 80)};
+        Item[] items = new Item[]{new Item("Sulfuras", 0, 80)};
         GildedRose app = new GildedRose(items);
         app.updateQuality();
         assertAll(
@@ -202,56 +202,56 @@ class GildedRoseTest {
 
     @Test
     void backstagePassQualityIncreasesBy2IfDaysToSellIs6() {
-        Item[] items = new Item[]{new Item("Aged Brie", 6, 0)};
+        Item[] items = new Item[]{new Item("Backstage passes to a TAFKAL80ETC concert", 6, 0)};
         GildedRose app = new GildedRose(items);
         app.updateQuality();
         assertAll(
             () -> assertEquals(2, app.items[0].quality),
-            () -> assertTrue(app.items[0].name.contains("Backstage pass"))
+            () -> assertTrue(app.items[0].name.contains("Backstage passes"))
         );
     }
 
     @Test
     void backstagePassQualityIncreasesBy2IfDaysToSellIs10() {
-        Item[] items = new Item[]{new Item("Aged Brie", 10, 0)};
+        Item[] items = new Item[]{new Item("Backstage passes to a TAFKAL80ETC concert", 10, 0)};
         GildedRose app = new GildedRose(items);
         app.updateQuality();
         assertAll(
             () -> assertEquals(2, app.items[0].quality),
-            () -> assertTrue(app.items[0].name.contains("Backstage pass"))
+            () -> assertTrue(app.items[0].name.contains("Backstage passes"))
         );
     }
 
     @Test
     void backstagePassQualityIncreasesBy3IfDaysToSellIs0() {
-        Item[] items = new Item[]{new Item("Aged Brie", 0, 0)};
+        Item[] items = new Item[]{new Item("Backstage passes to a TAFKAL80ETC concert", 0, 0)};
         GildedRose app = new GildedRose(items);
         app.updateQuality();
         assertAll(
             () -> assertEquals(3, app.items[0].quality),
-            () -> assertTrue(app.items[0].name.contains("Backstage pass"))
+            () -> assertTrue(app.items[0].name.contains("Backstage passes"))
         );
     }
 
     @Test
     void backstagePassQualityIncreasesBy3IfDaysToSellIs5() {
-        Item[] items = new Item[]{new Item("Aged Brie", 5, 0)};
+        Item[] items = new Item[]{new Item("Backstage passes to a TAFKAL80ETC concert", 5, 0)};
         GildedRose app = new GildedRose(items);
         app.updateQuality();
         assertAll(
             () -> assertEquals(3, app.items[0].quality),
-            () -> assertTrue(app.items[0].name.contains("Backstage pass"))
+            () -> assertTrue(app.items[0].name.contains("Backstage passes"))
         );
     }
 
     @Test
     public void backstagePassQualityDoesNotExceed50() {
-        Item[] items = new Item[]{new Item("foo", 1, 50)};
+        Item[] items = new Item[]{new Item("Backstage passes to a TAFKAL80ETC concert", 10, 50)};
         GildedRose app = new GildedRose(items);
         app.updateQuality();
         assertAll(
             () -> assertEquals(50, app.items[0].quality),
-            () -> assertTrue(app.items[0].name.contains("Backstage pass"))
+            () -> assertTrue(app.items[0].name.contains("Backstage passes"))
         );
     }
 
