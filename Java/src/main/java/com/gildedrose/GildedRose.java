@@ -10,27 +10,26 @@ class GildedRose {
     public void updateQuality() {
         for (int i = 0; i < items.length; i++) {
             Item item = items[i];
-            updateItemsBasedOnName(i, item);
+            updateItemBasedOnType(i, item);
+            setSulfurasQualityTo80(items, i);
             reduceSellInOfitemBy(1, items, i);
-
         }
-
     }
 
-    private void updateItemsBasedOnName(int i, Item item) {
-        //Any item but special cases is reduced by one
+    private void updateItemBasedOnType(int i, Item item) {
         if (!item.name.equals("Aged Brie")
             && !item.name.equals("Backstage passes to a TAFKAL80ETC concert")
             && !item.name.equals("Sulfuras, Hand of Ragnaros")) {
                 reduceQualityBy(1, items, i);
-
+                if (item.sellIn == 0) {
+                    reduceQualityBy(1, items, i);
+                }
         } else {
-            handleVariableQualityBasedOnSellIn(i, item);
+            handleBackstagePassQuality(i, item);
         }
-
     }
 
-    private void handleVariableQualityBasedOnSellIn(int i, Item item) {
+    private void handleBackstagePassQuality(int i, Item item) {
         if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")
             || item.name.equals("Aged Brie")) {
             if (item.sellIn < 11 && item.sellIn > 5) {
@@ -40,24 +39,35 @@ class GildedRose {
                 increaseQualityBy(3, items, i);
             }
         }
-
     }
 
     private void reduceQualityBy(int amount, Item[] items, int i) {
-        if (items[i].quality <= 50) {
-            items[i].quality = items[i].quality - amount;
-        }
+            if (items[i].quality < 50) {
+                items[i].quality = items[i].quality - amount;
+            } else {
+                items[i].quality = 49;
+            }
     }
 
     private void increaseQualityBy(int amount, Item[] items, int i) {
-        if (items[i].quality <= 50) {
+        if (items[i].quality < 50) {
             items[i].quality = items[i].quality + amount;
+        } else {
+            items[i].quality = 50;
         }
     }
 
     private void reduceSellInOfitemBy(int amount, Item[] items, int i) {
         if (!items[i].name.equals("Sulfuras, Hand of Ragnaros")) {
             items[i].sellIn = items[i].sellIn - amount;
+        } else {
+            items[i].quality = 50;
+        }
+    }
+
+    private void setSulfurasQualityTo80(Item[] items, int i) {
+        if (items[i].name.contains("Sulfuras")) {
+            items[i].quality = 80;
         }
     }
 }

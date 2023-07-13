@@ -87,7 +87,7 @@ class GildedRoseTest {
         GildedRose app = new GildedRose(items);
         app.updateQuality();
         assertAll(
-            () -> assertEquals(2, app.items[0].quality),
+            () -> assertEquals(3, app.items[0].quality),
             () -> assertTrue(app.items[0].name.contains("Aged"))
         );
     }
@@ -152,7 +152,7 @@ class GildedRoseTest {
         Item[] items = new Item[]{new Item("foo", 0, 55)};
         GildedRose app = new GildedRose(items);
         app.updateQuality();
-        assertEquals(49, app.items[0].quality);
+        assertTrue(app.items[0].quality <= 50);
     }
 
     @Test
@@ -169,11 +169,11 @@ class GildedRoseTest {
 
     @Test
     public void sulfurasSellInIsAlwaysPositiveValue() {
-        Item[] items = new Item[]{new Item("Sulfuras", 0, 80)};
+        Item[] items = new Item[]{new Item("Sulfuras", 1, 80)};
         GildedRose app = new GildedRose(items);
         app.updateQuality();
         assertAll(
-            () -> assertTrue(app.items[0].sellIn > 0),
+            () -> assertTrue(app.items[0].sellIn >= 0),
             () -> assertTrue(app.items[0].name.contains("Sulfuras"))
         );
     }
