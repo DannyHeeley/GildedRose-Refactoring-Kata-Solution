@@ -309,29 +309,29 @@ class GildedRoseTest {
         assertEquals(8, app.items[0].quality);
     }
 
-//    @Test
-//    void returnsTrueWhenConcertHasEnded() {
-//        int sellInValue = 0;
-//        int qualityValue = 10;
-//        String itemName = "foo";
-//        GetDateTime dateTimeNow = new GetDateTime();
-//        Concert concert = new Concert("Boomtown", "01/07/2023", "13:00:00", dateTimeNow);
-//        GildedRose app = handleUpdateQuality(sellInValue, qualityValue, itemName);
-//        assertTrue(app.isConcertOver(concert, dateTimeNow));
-//    }
+    @Test
+    void returnsTrueWhenConcertHasEnded() {
+        int sellInValue = 0;
+        int qualityValue = 10;
+        String itemName = "foo";
+        GetDateTime dateTimeNow = new GetDateTime();
+        Concert concert = new Concert("Madness", "01/07/2023", "13:00:00", dateTimeNow);
+        GildedRose app = handleUpdateQuality(sellInValue, qualityValue, itemName);
+        assertTrue(app.isConcertOver(dateTimeNow, concert));
+    }
 
-//    @Test
-//    void qualityDropsTo0AfterTheConcert() {
-//        int sellInValue = 0;
-//        int qualityValue = 10;
-//        String itemName = "foo";
-//        GetDateTime dateTimeNow = new GetDateTime();
-//        Concert concert = new Concert("Boomtown", "01/07/2023", "13:00:00", dateTimeNow);
-//        GildedRose app = handleUpdateQuality(sellInValue, qualityValue, itemName);
-//        assertAll (
-//            () -> assertTrue(app.isConcertOver(concert, dateTimeNow)),
-//            () -> assertEquals(0, app.items[0].quality)
-//        );
-//    }
+    @Test
+    void qualityDropsTo0AfterTheConcert() {
+        int sellInValue = 0;
+        int qualityValue = 10;
+        String itemName = "foo";
+        GetDateTime dateTimeNow = new GetDateTime();
+        Concert concert = new Concert("Madness", "01/07/2023", "13:00:00", dateTimeNow);
+        GildedRose app = handleUpdateQuality(sellInValue, qualityValue, itemName);
+        assertAll (
+            () -> assertTrue(app.isConcertOver(dateTimeNow, concert)),
+            () -> assertEquals(0, app.items[0].quality)
+        );
+    }
 
 }

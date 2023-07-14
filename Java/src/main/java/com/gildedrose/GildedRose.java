@@ -19,26 +19,30 @@ class GildedRose implements specialCaseItems {
             handleConjuredItem(i, item);
             handleExpiredItem(i, item);
             reduceSellInBy(1, items, i);
-            //handleItemsIfConcertHasEnded(i);
+            GetDateTime getDateTime = new GetDateTime();
+            // Hardcoded line, needs fix
+            Concert concert = new Concert("Madness", "13/07/2100", "13:00:00", getDateTime);
+            handleItemsIfConcertHasEnded(concert, i);
         }
     }
 
-//    public boolean isConcertOver(Concert concert, GetDateTime dateTimeNow) {
-//        if (dateTimeNow.getLocalDate() < concert.concertDate) {
-//            if (dateTimeNow.getLocalTime() < concert.concertEndTime) {
-//                return false;
-//            }
-//        }
-//        return true;
-//    }
-//    private void handleItemsIfConcertHasEnded(int i) {
-//        GetDateTime dateTime = new GetDateTime();
-//        // Hardcoded line, needs fix
-//        Concert concert = new Concert("Boomtown", "14/07/2023", "13:00:00", dateTime);
-//        if (isConcertOver(concert, dateTime)) {
-//            setQualityToZero(items, i);
-//        }
-//    }
+    public boolean isConcertOver(GetDateTime getDateTime, Concert concert) {
+        int timeDifference = getDateTime.getLocalDate().compareTo(concert.concertDate);
+        int dateDifference = getDateTime.getLocalTime().compareTo(concert.concertEndTime);
+        if (timeDifference < 0) {
+            if (dateDifference < 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+    private void handleItemsIfConcertHasEnded(Concert concert, int i) {
+        GetDateTime dateTimeNow = new GetDateTime();
+        if (isConcertOver(dateTimeNow, concert)) {
+            setQualityToZero(items, i);
+        }
+    }
+
     private void handleItemDefault(int i, Item item) {
         if (!item.name.contains(AGED)
             && !item.name.contains(BACKSTAGE_PASSES)
@@ -56,13 +60,13 @@ class GildedRose implements specialCaseItems {
         }
     }
 
-    private void handleBackstagePassItem(int i, Item item) {
+    public void handleBackstagePassItem(int i, Item item) {
         if (item.name.contains(BACKSTAGE_PASSES)) {
             increaseQualityBySellInValueRange(i, item);
         }
     }
 
-    private void handleSulfurasItem(Item[] items, int i) {
+    public void handleSulfurasItem(Item[] items, int i) {
         if (items[i].name.contains(SULFURAS)) {
             items[i].quality = 80;
             items[i].sellIn = Integer.MAX_VALUE;
