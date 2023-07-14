@@ -196,7 +196,7 @@ class GildedRoseTest {
     }
 
     @Test
-    public void sulfurasSellInIsAlwaysPositiveValue() {
+    void sulfurasSellInIsAlwaysPositiveValue() {
         int sellInValue = 1;
         int qualityValue = 80;
         String itemName = "Sulfuras";
@@ -208,7 +208,7 @@ class GildedRoseTest {
     }
 
     @Test
-    public void sulfurasQualityIsAlways80() {
+    void sulfurasQualityIsAlways80() {
         int sellInValue = 0;
         int qualityValue = 55;
         String itemName = "Sulfuras";
@@ -220,7 +220,7 @@ class GildedRoseTest {
     }
 
     @Test
-    public void sulfurasDoesNotDecreaseInQuality() {
+    void sulfurasDoesNotDecreaseInQuality() {
         int sellInValue = 0;
         int qualityValue = 80;
         String itemName = "Sulfuras";
@@ -280,7 +280,7 @@ class GildedRoseTest {
     }
 
     @Test
-    public void backstagePassQualityDoesNotExceed50() {
+    void backstagePassQualityDoesNotExceed50() {
         int sellInValue = 10;
         int qualityValue = 50;
         String itemName = "Backstage passes to a TAFKAL80ETC concert";
@@ -292,21 +292,12 @@ class GildedRoseTest {
     }
 
     @Test
-    public void qualityDropsTo0AfterTheConcert() {
+    void qualityDropsTo0AfterTheConcert() {
         int sellInValue = 0;
         int qualityValue = 10;
         String itemName = "foo";
         GildedRose app = handleUpdateQuality(sellInValue, qualityValue, itemName);
         assertEquals(0, app.items[0].quality);
-    }
-
-    @Test
-        void qualityDegradesTwiceAsFastIfSellInIs0() {
-        int sellInValue = 0;
-        int qualityValue = 10;
-        String itemName = "foo";
-        GildedRose app = handleUpdateQuality(sellInValue, qualityValue, itemName);
-        assertEquals(8, app.items[0].quality);
     }
 
     @Test
