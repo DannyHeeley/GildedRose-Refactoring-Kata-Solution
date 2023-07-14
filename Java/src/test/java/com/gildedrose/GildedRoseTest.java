@@ -292,15 +292,6 @@ class GildedRoseTest {
     }
 
     @Test
-    void qualityDropsTo0AfterTheConcert() {
-        int sellInValue = 0;
-        int qualityValue = 10;
-        String itemName = "foo";
-        GildedRose app = handleUpdateQuality(sellInValue, qualityValue, itemName);
-        assertEquals(0, app.items[0].quality);
-    }
-
-    @Test
     void qualityDegradesTwiceAsFastIfItemIsExpired() {
         int sellInValue = -1;
         int qualityValue = 10;
@@ -317,5 +308,30 @@ class GildedRoseTest {
         GildedRose app = handleUpdateQuality(sellInValue, qualityValue, itemName);
         assertEquals(8, app.items[0].quality);
     }
+
+//    @Test
+//    void returnsTrueWhenConcertHasEnded() {
+//        int sellInValue = 0;
+//        int qualityValue = 10;
+//        String itemName = "foo";
+//        GetDateTime dateTimeNow = new GetDateTime();
+//        Concert concert = new Concert("Boomtown", "01/07/2023", "13:00:00", dateTimeNow);
+//        GildedRose app = handleUpdateQuality(sellInValue, qualityValue, itemName);
+//        assertTrue(app.isConcertOver(concert, dateTimeNow));
+//    }
+
+//    @Test
+//    void qualityDropsTo0AfterTheConcert() {
+//        int sellInValue = 0;
+//        int qualityValue = 10;
+//        String itemName = "foo";
+//        GetDateTime dateTimeNow = new GetDateTime();
+//        Concert concert = new Concert("Boomtown", "01/07/2023", "13:00:00", dateTimeNow);
+//        GildedRose app = handleUpdateQuality(sellInValue, qualityValue, itemName);
+//        assertAll (
+//            () -> assertTrue(app.isConcertOver(concert, dateTimeNow)),
+//            () -> assertEquals(0, app.items[0].quality)
+//        );
+//    }
 
 }

@@ -1,4 +1,5 @@
 package com.gildedrose;
+
 /** @noinspection SpellCheckingInspection*/
 class GildedRose implements specialCaseItems {
 
@@ -18,9 +19,26 @@ class GildedRose implements specialCaseItems {
             handleConjuredItem(i, item);
             handleExpiredItem(i, item);
             reduceSellInBy(1, items, i);
+            //handleItemsIfConcertHasEnded(i);
         }
     }
 
+//    public boolean isConcertOver(Concert concert, GetDateTime dateTimeNow) {
+//        if (dateTimeNow.getLocalDate() < concert.concertDate) {
+//            if (dateTimeNow.getLocalTime() < concert.concertEndTime) {
+//                return false;
+//            }
+//        }
+//        return true;
+//    }
+//    private void handleItemsIfConcertHasEnded(int i) {
+//        GetDateTime dateTime = new GetDateTime();
+//        // Hardcoded line, needs fix
+//        Concert concert = new Concert("Boomtown", "14/07/2023", "13:00:00", dateTime);
+//        if (isConcertOver(concert, dateTime)) {
+//            setQualityToZero(items, i);
+//        }
+//    }
     private void handleItemDefault(int i, Item item) {
         if (!item.name.contains(AGED)
             && !item.name.contains(BACKSTAGE_PASSES)
@@ -100,4 +118,5 @@ class GildedRose implements specialCaseItems {
             items[i].quality = 0;
         }
     }
+
 }
