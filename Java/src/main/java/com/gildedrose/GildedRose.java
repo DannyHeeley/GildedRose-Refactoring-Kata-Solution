@@ -1,5 +1,5 @@
 package com.gildedrose;
-
+/** @noinspection SpellCheckingInspection*/
 class GildedRose {
     Item[] items;
 
@@ -10,34 +10,55 @@ class GildedRose {
     public void updateQuality() {
         for (int i = 0; i < items.length; i++) {
             Item item = items[i];
-            updateItemBasedOnType(i, item);
-            setSulfurasQualityTo80(items, i);
-            reduceSellInOfitemBy(1, items, i);
+            handleItemDefault(i, item);
+            handleBackstagePassItem(i, item);
+            handleAgedItem(i, item);
+            handleConjuredItem(i, item);
+            handleSulfurasItem(items, i);
+            reduceSellInBy(1, items, i);
         }
     }
 
-    private void updateItemBasedOnType(int i, Item item) {
-        if (!item.name.equals("Aged Brie")
-            && !item.name.equals("Backstage passes to a TAFKAL80ETC concert")
-            && !item.name.equals("Sulfuras, Hand of Ragnaros")) {
-                reduceQualityBy(1, items, i);
-                if (item.sellIn == 0) {
-                    reduceQualityBy(1, items, i);
-                }
-        } else {
-            handleBackstagePassQuality(i, item);
+    private void handleItemDefault(int i, Item item) {
+        if (!item.name.contains("Aged")
+            && !item.name.contains("Backstage passes")
+            && !item.name.contains("Sulfuras")
+            && !item.name.contains("Conjured")) {
+            reduceQualityBy(1, items, i);
+            handleExpiredItem(i, item);
         }
     }
 
-    private void handleBackstagePassQuality(int i, Item item) {
-        if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")
-            || item.name.equals("Aged Brie")) {
-            if (item.sellIn < 11 && item.sellIn > 5) {
-                increaseQualityBy(2, items, i);
-            }
-            if (item.sellIn < 6) {
-                increaseQualityBy(3, items, i);
-            }
+    private void handleExpiredItem(int i, Item item) {
+        if (item.sellIn < 1) {
+            reduceQualityBy(1, items, i);
+        }
+    }
+
+    private void handleBackstagePassItem(int i, Item item) {
+        if (item.name.contains("Backstage passes")) {
+            handleQualityBySellInValueRanges(i, item);
+        }
+    }
+
+    private void handleAgedItem(int i, Item item) {
+        if (item.name.contains("Aged")) {
+            handleQualityBySellInValueRanges(i, item);
+        }
+    }
+
+    private void handleConjuredItem(int i, Item item) {
+        if (item.name.contains("Conjured")) {
+            reduceQualityBy(2, items, i);
+        }
+    }
+
+    private void handleQualityBySellInValueRanges(int i, Item item) {
+        if (item.sellIn < 11 && item.sellIn > 5) {
+            increaseQualityBy(2, items, i);
+        }
+        if (item.sellIn < 6) {
+            increaseQualityBy(3, items, i);
         }
     }
 
@@ -57,7 +78,7 @@ class GildedRose {
         }
     }
 
-    private void reduceSellInOfitemBy(int amount, Item[] items, int i) {
+    private void reduceSellInBy(int amount, Item[] items, int i) {
         if (!items[i].name.equals("Sulfuras, Hand of Ragnaros")) {
             items[i].sellIn = items[i].sellIn - amount;
         } else {
@@ -65,9 +86,10 @@ class GildedRose {
         }
     }
 
-    private void setSulfurasQualityTo80(Item[] items, int i) {
+    private void handleSulfurasItem(Item[] items, int i) {
         if (items[i].name.contains("Sulfuras")) {
             items[i].quality = 80;
+            items[i].sellIn = Integer.MAX_VALUE;
         }
     }
 }

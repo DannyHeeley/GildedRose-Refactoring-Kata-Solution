@@ -291,16 +291,27 @@ class GildedRoseTest {
         );
     }
 
-//    @Test
-//    public void qualityDropsTo0AfterTheConcert() {
-//        Item[] items = new Item[]{new Item("foo", 0, 55)};
-//        GildedRose app = new GildedRose(items);
-//        app.updateQuality();
-//    }
+    @Test
+    public void qualityDropsTo0AfterTheConcert() {
+        int sellInValue = 0;
+        int qualityValue = 10;
+        String itemName = "foo";
+        GildedRose app = handleUpdateQuality(sellInValue, qualityValue, itemName);
+        assertEquals(0, app.items[0].quality);
+    }
 
     @Test
         void qualityDegradesTwiceAsFastIfSellInIs0() {
         int sellInValue = 0;
+        int qualityValue = 10;
+        String itemName = "foo";
+        GildedRose app = handleUpdateQuality(sellInValue, qualityValue, itemName);
+        assertEquals(8, app.items[0].quality);
+    }
+
+    @Test
+    void qualityDegradesTwiceAsFastIfItemIsExpired() {
+        int sellInValue = -1;
         int qualityValue = 10;
         String itemName = "foo";
         GildedRose app = handleUpdateQuality(sellInValue, qualityValue, itemName);
