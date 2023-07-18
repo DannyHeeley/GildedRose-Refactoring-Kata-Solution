@@ -7,14 +7,12 @@ import java.util.Locale;
 
 public class GetDateTime {
     LocalTime localTime = LocalTime.now();
-    DateTimeFormatter formatTime = DateTimeFormatter.ofPattern("HH:mm:ss", Locale.ENGLISH);
-    String textTime = localTime.format(formatTime);
-    LocalTime parsedTime = LocalTime.parse(textTime, formatTime);
+    String textTime = localTime.format(DateTimeFormatter.ofPattern("HH:mm:ss", Locale.ENGLISH));
+    LocalTime parsedTime = LocalTime.parse(textTime, DateTimeFormatter.ofPattern("HH:mm:ss", Locale.ENGLISH));
 
     LocalDate localDate = LocalDate.now();
-    DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.ENGLISH);
-    String textDate = localDate.format(formatDate);
-    LocalDate parsedDate = LocalDate.parse(textDate, formatDate);
+    String textDate = localDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.ENGLISH));
+    LocalDate parsedDate = LocalDate.parse(textDate, DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.ENGLISH));
 
     public LocalDate getLocalDate() {
         return parsedDate;

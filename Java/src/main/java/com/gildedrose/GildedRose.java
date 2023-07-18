@@ -1,44 +1,41 @@
 package com.gildedrose;
 
 /** @noinspection SpellCheckingInspection*/
-class GildedRose implements specialCaseItems {
+class GildedRose implements SpecialCaseItems {
 
     Item[] items;
+
+    Concert concert;
 
     public GildedRose(Item[] items) {
         this.items = items;
     }
 
+    public GildedRose(Item[] items, Concert concert) {
+        this.items = items;
+        this.concert = concert;
+    }
+
     public void updateQuality() {
         for (int i = 0; i < items.length; i++) {
             Item item = items[i];
-            handleItemDefault(i, item);
-            handleAgedItem(i, item);
-            handleBackstagePassItem(i, item);
-            handleSulfurasItem(items, i);
-            handleConjuredItem(i, item);
-            handleExpiredItem(i, item);
-            reduceSellInBy(1, items, i);
-            GetDateTime getDateTime = new GetDateTime();
-            // Hardcoded line, needs fix
-            Concert concert = new Concert("Madness", "13/07/2100", "13:00:00", getDateTime);
-            handleItemsIfConcertHasEnded(concert, i);
+            if (concert != null && concert.isConcertOver(new GetDateTime())) {
+                handleItemsIfConcertHasEnded(concert, i);
+            } else {
+                handleItemDefault(i, item);
+                handleAgedItem(i, item);
+                handleBackstagePassItem(i, item);
+                handleSulfurasItem(items, i);
+                handleConjuredItem(i, item);
+                handleExpiredItem(i, item);
+                reduceSellInBy(1, items, i);
+            }
         }
     }
 
-    public boolean isConcertOver(GetDateTime getDateTime, Concert concert) {
-        int timeDifference = getDateTime.getLocalDate().compareTo(concert.concertDate);
-        int dateDifference = getDateTime.getLocalTime().compareTo(concert.concertEndTime);
-        if (timeDifference < 0) {
-            if (dateDifference < 0) {
-                return true;
-            }
-        }
-        return false;
-    }
     private void handleItemsIfConcertHasEnded(Concert concert, int i) {
         GetDateTime dateTimeNow = new GetDateTime();
-        if (isConcertOver(dateTimeNow, concert)) {
+        if (concert.isConcertOver(dateTimeNow)) {
             setQualityToZero(items, i);
         }
     }
@@ -56,13 +53,13 @@ class GildedRose implements specialCaseItems {
 
     private void handleAgedItem(int i, Item item) {
         if (item.name.contains(AGED)) {
-            increaseQualityBySellInValueRange(i, item);
+            increaseQualityBySellInValue(i, item);
         }
     }
 
     public void handleBackstagePassItem(int i, Item item) {
         if (item.name.contains(BACKSTAGE_PASSES)) {
-            increaseQualityBySellInValueRange(i, item);
+            increaseQualityBySellInValue(i, item);
         }
     }
 
@@ -90,7 +87,7 @@ class GildedRose implements specialCaseItems {
         }
     }
 
-    private void increaseQualityBySellInValueRange(int i, Item item) {
+    private void increaseQualityBySellInValue(int i, Item item) {
         if (item.sellIn < 11 && item.sellIn > 5) {
             increaseQualityBy(2, items, i);
         }

@@ -13,39 +13,34 @@ class GildedRoseTest {
         return app;
     }
 
+    private GildedRose handleUpdateQualityConcert(int sellInValue, int qualityValue, String itemName, Concert concert) {
+        Item[] items = new Item[]{new Item(itemName, sellInValue, qualityValue)};
+        GildedRose app = new GildedRose(items, concert);
+        app.updateQuality();
+        return app;
+    }
+
     @Test
     void itemsHaveNameValue() {
-        int sellInValue = 10;
-        int qualityValue = 0;
-        String itemName = "foo";
-        GildedRose app = handleUpdateQuality(sellInValue, qualityValue, itemName);
+        GildedRose app = handleUpdateQuality(10, 0, "foo");
         assertEquals("foo", app.items[0].name);
     }
 
     @Test
     void itemsHaveQualityValue() {
-        int sellInValue = 0;
-        int qualityValue = 10;
-        String itemName = "foo";
-        GildedRose app = handleUpdateQuality(sellInValue, qualityValue, itemName);
+        GildedRose app = handleUpdateQuality(0, 10, "foo");
         assertNotNull(app.items[0].quality);
     }
 
     @Test
     void itemsHaveSellInValue() {
-        int sellInValue = 10;
-        int qualityValue = 0;
-        String itemName = "foo";
-        GildedRose app = handleUpdateQuality(sellInValue, qualityValue, itemName);
+        GildedRose app = handleUpdateQuality(10, 0, "foo");
         assertNotNull(app.items[0].sellIn);
     }
 
     @Test
     void itemsHaveAllThreeValues() {
-        int sellInValue = 10;
-        int qualityValue = 0;
-        String itemName = "foo";
-        GildedRose app = handleUpdateQuality(sellInValue, qualityValue, itemName);
+        GildedRose app = handleUpdateQuality(10, 0, "foo");
         assertAll(
             () -> assertNotNull(app.items[0].name),
             () -> assertNotNull(app.items[0].sellIn),
@@ -55,28 +50,19 @@ class GildedRoseTest {
 
     @Test
     void itemQualityIsLoweredAtEndOfDay() {
-        int sellInValue = 1;
-        int qualityValue = 10;
-        String itemName = "foo";
-        GildedRose app = handleUpdateQuality(sellInValue, qualityValue, itemName);
+        GildedRose app = handleUpdateQuality(1, 10, "foo");
         assertTrue(app.items[0].quality < 10);
     }
 
     @Test
     void itemSellInIsLoweredAtEndOfDay() {
-        int sellInValue = 1;
-        int qualityValue = 10;
-        String itemName = "foo";
-        GildedRose app = handleUpdateQuality(sellInValue, qualityValue, itemName);
+        GildedRose app = handleUpdateQuality(1, 10, "foo");
         assertEquals(0, app.items[0].sellIn);
     }
 
     @Test
     void sellInAndQualityAreLoweredAtEndOfDay() {
-        int sellInValue = 10;
-        int qualityValue = 10;
-        String itemName = "foo";
-        GildedRose app = handleUpdateQuality(sellInValue, qualityValue, itemName);
+        GildedRose app = handleUpdateQuality(10, 10, "foo");
         assertAll(
             () -> assertEquals(9, app.items[0].sellIn),
             () -> assertEquals(9, app.items[0].quality)
@@ -85,28 +71,19 @@ class GildedRoseTest {
 
     @Test
     void sellInCanBeMinusValue() {
-        int sellInValue = 0;
-        int qualityValue = 10;
-        String itemName = "foo";
-        GildedRose app = handleUpdateQuality(sellInValue, qualityValue, itemName);
+        GildedRose app = handleUpdateQuality(0, 10, "foo");
         assertTrue(app.items[0].sellIn < 0);
     }
 
     @Test
     void itemQualityIsNeverMinusValue() {
-        int sellInValue = 0;
-        int qualityValue = 0;
-        String itemName = "foo";
-        GildedRose app = handleUpdateQuality(sellInValue, qualityValue, itemName);
+        GildedRose app = handleUpdateQuality(0, 0, "foo");
         assertEquals("foo", app.items[0].name);
     }
 
     @Test
     void agedItemQualityIsNeverMinusValue() {
-        int sellInValue = 0;
-        int qualityValue = 0;
-        String itemName = "Aged Brie";
-        GildedRose app = handleUpdateQuality(sellInValue, qualityValue, itemName);
+        GildedRose app = handleUpdateQuality(0, 0, "Aged Brie");
         assertAll(
             () -> assertEquals(3, app.items[0].quality),
             () -> assertTrue(app.items[0].name.contains("Aged"))
@@ -115,10 +92,7 @@ class GildedRoseTest {
 
     @Test
     void agedQualityIncreasesEachDay() {
-        int sellInValue = 0;
-        int qualityValue = 0;
-        String itemName = "Aged Brie";
-        GildedRose app = handleUpdateQuality(sellInValue, qualityValue, itemName);
+        GildedRose app = handleUpdateQuality(0, 0, "Aged Brie");
         assertAll(
             () -> assertTrue(app.items[0].quality > 0),
             () -> assertTrue(app.items[0].name.contains("Aged"))
@@ -127,10 +101,7 @@ class GildedRoseTest {
 
     @Test
     void agedQualityIncreasesBy2IfDaysToSellIs6() {
-        int sellInValue = 6;
-        int qualityValue = 0;
-        String itemName = "Aged Brie";
-        GildedRose app = handleUpdateQuality(sellInValue, qualityValue, itemName);
+        GildedRose app = handleUpdateQuality(6, 0, "Aged Brie");
         assertAll(
             () -> assertEquals(2, app.items[0].quality),
             () -> assertTrue(app.items[0].name.contains("Aged"))
@@ -139,10 +110,7 @@ class GildedRoseTest {
 
     @Test
     void agedQualityIncreasesBy2IfDaysToSellIs10() {
-        int sellInValue = 10;
-        int qualityValue = 0;
-        String itemName = "Aged Brie";
-        GildedRose app = handleUpdateQuality(sellInValue, qualityValue, itemName);
+        GildedRose app = handleUpdateQuality(10, 0, "Aged Brie");
         assertAll(
             () -> assertEquals(2, app.items[0].quality),
             () -> assertTrue(app.items[0].name.contains("Aged"))
@@ -151,10 +119,7 @@ class GildedRoseTest {
 
     @Test
     void agedQualityIncreasesBy3IfDaysToSellIs0() {
-        int sellInValue = 0;
-        int qualityValue = 0;
-        String itemName = "Aged Brie";
-        GildedRose app = handleUpdateQuality(sellInValue, qualityValue, itemName);
+        GildedRose app = handleUpdateQuality(0, 0, "Aged Brie");
         assertAll(
             () -> assertEquals(3, app.items[0].quality),
             () -> assertTrue(app.items[0].name.contains("Aged"))
@@ -163,10 +128,7 @@ class GildedRoseTest {
 
     @Test
     void agedQualityIncreasesBy3IfDaysToSellIs5() {
-        int sellInValue = 5;
-        int qualityValue = 0;
-        String itemName = "Aged Brie";
-        GildedRose app = handleUpdateQuality(sellInValue, qualityValue, itemName);
+        GildedRose app = handleUpdateQuality(5, 0, "Aged Brie");
         assertAll(
             () -> assertEquals(3, app.items[0].quality),
             () -> assertTrue(app.items[0].name.contains("Aged"))
@@ -175,19 +137,13 @@ class GildedRoseTest {
 
     @Test
     void qualityOfNonAgedItemIsNeverMoreThan50() {
-        int sellInValue = 0;
-        int qualityValue = 55;
-        String itemName = "foo";
-        GildedRose app = handleUpdateQuality(sellInValue, qualityValue, itemName);
+        GildedRose app = handleUpdateQuality(0, 55, "foo");
         assertTrue(app.items[0].quality <= 50);
     }
 
     @Test
     void qualityOfAgedItemIsNeverMoreThan50() {
-        int sellInValue = 0;
-        int qualityValue = 50;
-        String itemName = "Aged Brie";
-        GildedRose app = handleUpdateQuality(sellInValue, qualityValue, itemName);
+        GildedRose app = handleUpdateQuality(0, 50, "Aged Brie");
         assertEquals(50, app.items[0].quality);
         assertAll(
             () -> assertEquals(50, app.items[0].quality),
@@ -197,10 +153,7 @@ class GildedRoseTest {
 
     @Test
     void sulfurasSellInIsAlwaysPositiveValue() {
-        int sellInValue = 1;
-        int qualityValue = 80;
-        String itemName = "Sulfuras";
-        GildedRose app = handleUpdateQuality(sellInValue, qualityValue, itemName);
+        GildedRose app = handleUpdateQuality(1, 80, "Sulfuras");
         assertAll(
             () -> assertTrue(app.items[0].sellIn >= 0),
             () -> assertTrue(app.items[0].name.contains("Sulfuras"))
@@ -209,10 +162,7 @@ class GildedRoseTest {
 
     @Test
     void sulfurasQualityIsAlways80() {
-        int sellInValue = 0;
-        int qualityValue = 55;
-        String itemName = "Sulfuras";
-        GildedRose app = handleUpdateQuality(sellInValue, qualityValue, itemName);
+        GildedRose app = handleUpdateQuality(0, 55, "Sulfuras");
         assertAll(
             () -> assertEquals(80, app.items[0].quality),
             () -> assertTrue(app.items[0].name.contains("Sulfuras"))
@@ -221,10 +171,7 @@ class GildedRoseTest {
 
     @Test
     void sulfurasDoesNotDecreaseInQuality() {
-        int sellInValue = 0;
-        int qualityValue = 80;
-        String itemName = "Sulfuras";
-        GildedRose app = handleUpdateQuality(sellInValue, qualityValue, itemName);
+        GildedRose app = handleUpdateQuality(0, 80, "Sulfuras");
         assertAll(
             () -> assertEquals(80, app.items[0].quality),
             () -> assertTrue(app.items[0].name.contains("Sulfuras"))
@@ -233,10 +180,7 @@ class GildedRoseTest {
 
     @Test
     void backstagePassQualityIncreasesBy2IfDaysToSellIs6() {
-        int sellInValue = 6;
-        int qualityValue = 0;
-        String itemName = "Backstage passes to a TAFKAL80ETC concert";
-        GildedRose app = handleUpdateQuality(sellInValue, qualityValue, itemName);
+        GildedRose app = handleUpdateQuality(6, 0, "Backstage passes to a TAFKAL80ETC concert");
         assertAll(
             () -> assertEquals(2, app.items[0].quality),
             () -> assertTrue(app.items[0].name.contains("Backstage passes"))
@@ -245,10 +189,7 @@ class GildedRoseTest {
 
     @Test
     void backstagePassQualityIncreasesBy2IfDaysToSellIs10() {
-        int sellInValue = 10;
-        int qualityValue = 0;
-        String itemName = "Backstage passes to a TAFKAL80ETC concert";
-        GildedRose app = handleUpdateQuality(sellInValue, qualityValue, itemName);
+        GildedRose app = handleUpdateQuality(10, 0, "Backstage passes to a TAFKAL80ETC concert");
         assertAll(
             () -> assertEquals(2, app.items[0].quality),
             () -> assertTrue(app.items[0].name.contains("Backstage passes"))
@@ -257,10 +198,7 @@ class GildedRoseTest {
 
     @Test
     void backstagePassQualityIncreasesBy3IfDaysToSellIs0() {
-        int sellInValue = 0;
-        int qualityValue = 0;
-        String itemName = "Backstage passes to a TAFKAL80ETC concert";
-        GildedRose app = handleUpdateQuality(sellInValue, qualityValue, itemName);
+        GildedRose app = handleUpdateQuality(0, 0, "Backstage passes to a TAFKAL80ETC concert");
         assertAll(
             () -> assertEquals(3, app.items[0].quality),
             () -> assertTrue(app.items[0].name.contains("Backstage passes"))
@@ -269,10 +207,7 @@ class GildedRoseTest {
 
     @Test
     void backstagePassQualityIncreasesBy3IfDaysToSellIs5() {
-        int sellInValue = 5;
-        int qualityValue = 0;
-        String itemName = "Backstage passes to a TAFKAL80ETC concert";
-        GildedRose app = handleUpdateQuality(sellInValue, qualityValue, itemName);
+        GildedRose app = handleUpdateQuality(5, 0, "Backstage passes to a TAFKAL80ETC concert");
         assertAll(
             () -> assertEquals(3, app.items[0].quality),
             () -> assertTrue(app.items[0].name.contains("Backstage passes"))
@@ -281,10 +216,7 @@ class GildedRoseTest {
 
     @Test
     void backstagePassQualityDoesNotExceed50() {
-        int sellInValue = 10;
-        int qualityValue = 50;
-        String itemName = "Backstage passes to a TAFKAL80ETC concert";
-        GildedRose app = handleUpdateQuality(sellInValue, qualityValue, itemName);
+        GildedRose app = handleUpdateQuality(10, 50, "Backstage passes to a TAFKAL80ETC concert");
         assertAll(
             () -> assertEquals(50, app.items[0].quality),
             () -> assertTrue(app.items[0].name.contains("Backstage passes"))
@@ -293,43 +225,28 @@ class GildedRoseTest {
 
     @Test
     void qualityDegradesTwiceAsFastIfItemIsExpired() {
-        int sellInValue = -1;
-        int qualityValue = 10;
-        String itemName = "foo";
-        GildedRose app = handleUpdateQuality(sellInValue, qualityValue, itemName);
+        GildedRose app = handleUpdateQuality(-1, 10, "foo");
         assertEquals(8, app.items[0].quality);
     }
 
     @Test
     void conjuredItemsDegradeInQualityTwiceAsFastAsNormalItems() {
-        int sellInValue = 10;
-        int qualityValue = 10;
-        String itemName = "Conjured Duck";
-        GildedRose app = handleUpdateQuality(sellInValue, qualityValue, itemName);
+        GildedRose app = handleUpdateQuality(10, 10, "Conjured Duck");
         assertEquals(8, app.items[0].quality);
     }
 
     @Test
     void returnsTrueWhenConcertHasEnded() {
-        int sellInValue = 0;
-        int qualityValue = 10;
-        String itemName = "foo";
-        GetDateTime dateTimeNow = new GetDateTime();
-        Concert concert = new Concert("Madness", "01/07/2023", "13:00:00", dateTimeNow);
-        GildedRose app = handleUpdateQuality(sellInValue, qualityValue, itemName);
-        assertTrue(app.isConcertOver(dateTimeNow, concert));
+        Concert concert = new Concert("Madness", "01/07/2023", "13:00:00");
+        assertTrue(concert.isConcertOver(new GetDateTime()));
     }
 
     @Test
     void qualityDropsTo0AfterTheConcert() {
-        int sellInValue = 0;
-        int qualityValue = 10;
-        String itemName = "foo";
-        GetDateTime dateTimeNow = new GetDateTime();
-        Concert concert = new Concert("Madness", "01/07/2023", "13:00:00", dateTimeNow);
-        GildedRose app = handleUpdateQuality(sellInValue, qualityValue, itemName);
+        Concert concert = new Concert("Madness", "01/07/2023", "13:00:00");
+        GildedRose app = handleUpdateQualityConcert(0, 10, "foo", concert);
         assertAll (
-            () -> assertTrue(app.isConcertOver(dateTimeNow, concert)),
+            () -> assertTrue(concert.isConcertOver(new GetDateTime())),
             () -> assertEquals(0, app.items[0].quality)
         );
     }

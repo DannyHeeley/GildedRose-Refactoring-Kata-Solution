@@ -10,13 +10,16 @@ public class Concert {
     LocalDate concertDate;
     LocalTime concertEndTime;
 
-    public Concert(String concertName, String concertDate, String concertEndTime, GetDateTime dateTime) {
-        LocalTime concertEndTimeFormatted = LocalTime.parse(concertEndTime, dateTime.formatTime);
-        LocalDate concertDateFormatted = LocalDate.parse(concertDate, dateTime.formatDate);
-        DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.ENGLISH);
+    public Concert(String concertName, String concertDate, String concertEndTime) {
         this.concertName = concertName;
-        this.concertEndTime = concertEndTimeFormatted;
-        this.concertDate = concertDateFormatted;
+        this.concertEndTime = LocalTime.parse(concertEndTime, DateTimeFormatter.ofPattern("HH:mm:ss", Locale.ENGLISH));
+        this.concertDate = LocalDate.parse(concertDate, DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.ENGLISH));
+    }
+
+    public boolean isConcertOver(GetDateTime getDateTime) {
+        LocalDate currentDate = getDateTime.getLocalDate();
+        LocalTime currentTime = getDateTime.getLocalTime();
+        return currentDate.isAfter(concertDate) || (currentDate.isEqual(concertDate) && currentTime.isAfter(concertEndTime));
     }
 }
 
