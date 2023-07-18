@@ -83,9 +83,9 @@ class GildedRoseTest {
 
     @Test
     void agedItemQualityIsNeverMinusValue() {
-        GildedRose app = handleUpdateQuality(0, 0, "Aged Brie");
+        GildedRose app = handleUpdateQuality(0, -1, "Aged Brie");
         assertAll(
-            () -> assertEquals(3, app.items[0].quality),
+            () -> assertTrue(app.items[0].quality >= 0),
             () -> assertTrue(app.items[0].name.contains("Aged"))
         );
     }

@@ -5,7 +5,6 @@ public interface SpecialCaseItems {
     String SULFURAS = "Sulfuras";
     String CONJURED = "Conjured";
     String AGED = "Aged";
-
 }
 
 
