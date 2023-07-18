@@ -23,7 +23,7 @@ class GildedRose implements SpecialCaseItems {
                 handleItemsIfConcertHasEnded(concert, item);
             } else {
                 itemStrategies.useStrategyFor(item);
-                reduceSellInBy(1, item);
+                reduceSellInByOne(1, item);
             }
         }
     }
@@ -48,8 +48,8 @@ class GildedRose implements SpecialCaseItems {
         }
     }
 
-    void reduceSellInBy(int amount, Item item) {
-            item.sellIn = item.sellIn - amount;
+    void reduceSellInByOne(Item item) {
+            item.sellIn = item.sellIn - 1;
     }
 
     private void setQualityToZero(Item item) {
