@@ -6,4 +6,3 @@ vendor
 .idea
 *.iml
 csharpcore/GildedRoseTests/ApprovalTest.ThirtyDays.received.txt
-out

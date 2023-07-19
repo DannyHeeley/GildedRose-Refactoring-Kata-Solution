@@ -6,8 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 public class GetDateTime {
-    private LocalTime parseLocalTime()
-    {
+    private LocalTime parseLocalTime() {
         LocalTime localTime = LocalTime.now();
         String textTime = localTime.format(DateTimeFormatter.ofPattern("HH:mm:ss", Locale.ENGLISH));
         return LocalTime.parse(textTime, DateTimeFormatter.ofPattern("HH:mm:ss", Locale.ENGLISH));
