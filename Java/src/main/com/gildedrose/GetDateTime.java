@@ -6,19 +6,23 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 public class GetDateTime {
-    LocalTime localTime = LocalTime.now();
-    String textTime = localTime.format(DateTimeFormatter.ofPattern("HH:mm:ss", Locale.ENGLISH));
-    LocalTime parsedTime = LocalTime.parse(textTime, DateTimeFormatter.ofPattern("HH:mm:ss", Locale.ENGLISH));
+    private LocalTime parseLocalTime() {
+        LocalTime localTime = LocalTime.now();
+        String textTime = localTime.format(DateTimeFormatter.ofPattern("HH:mm:ss", Locale.ENGLISH));
+        return LocalTime.parse(textTime, DateTimeFormatter.ofPattern("HH:mm:ss", Locale.ENGLISH));
+    }
 
-    LocalDate localDate = LocalDate.now();
-    String textDate = localDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.ENGLISH));
-    LocalDate parsedDate = LocalDate.parse(textDate, DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.ENGLISH));
+    private LocalDate parseLocalDate() {
+        LocalDate localDate = LocalDate.now();
+        String textDate = localDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.ENGLISH));
+        return LocalDate.parse(textDate, DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.ENGLISH));
+    }
 
     public LocalDate getLocalDate() {
-        return parsedDate;
+        return parseLocalDate();
     }
 
     public LocalTime getLocalTime() {
-        return parsedTime;
+        return parseLocalTime();
     }
 }
