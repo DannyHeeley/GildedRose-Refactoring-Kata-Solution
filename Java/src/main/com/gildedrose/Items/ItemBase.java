@@ -1,19 +1,19 @@
 package com.gildedrose.Items;
 
-public class Item {
+public class ItemBase {
     private String name;
     private int sellIn;
     private int quality;
     private ItemType itemType;
 
-    public Item(String name, int sellIn, int quality) {
+    public ItemBase(String name, int sellIn, int quality) {
         this.setName(name);
         this.setSellIn(sellIn);
         this.setQuality(quality);
         this.itemType = ItemType.DEFAULT;
     }
 
-    public Item(String name, int sellIn, int quality, ItemType itemType) {
+    public ItemBase(String name, int sellIn, int quality, ItemType itemType) {
         this.setName(name);
         this.setSellIn(sellIn);
         this.setQuality(quality);

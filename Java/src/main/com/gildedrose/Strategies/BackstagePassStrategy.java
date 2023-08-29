@@ -1,6 +1,6 @@
 package com.gildedrose.Strategies;
 
-import com.gildedrose.Items.Item;
+import com.gildedrose.Items.ItemBase;
 import com.gildedrose.Items.ItemType;
 
 public class BackstagePassStrategy implements ItemUpdateStrategy {
@@ -10,7 +10,7 @@ public class BackstagePassStrategy implements ItemUpdateStrategy {
     }
 
     @Override
-    public void update(Item item) {
+    public void update(ItemBase item) {
         if (item.getItemType().equals(ItemType.BACKSTAGE_PASSES)) {
             itemManager.increaseQualityBasedOnRemainingDaysToSell(item);
         }

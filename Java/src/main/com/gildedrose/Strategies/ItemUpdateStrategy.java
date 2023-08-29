@@ -1,7 +1,7 @@
 package com.gildedrose.Strategies;
 
-import com.gildedrose.Items.Item;
+import com.gildedrose.Items.ItemBase;
 
 public interface ItemUpdateStrategy {
-    void update(Item item);
+    void update(ItemBase item);
 }

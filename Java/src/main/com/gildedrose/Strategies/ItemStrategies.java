@@ -1,17 +1,14 @@
 package com.gildedrose.Strategies;
 
-import com.gildedrose.GildedRose;
-import com.gildedrose.Items.Item;
+import com.gildedrose.Items.ItemBase;
 import com.gildedrose.Items.ItemType;
 
 import java.util.HashMap;
 import java.util.Map;
 
-
 public class ItemStrategies {
-
-    Map<ItemType, ItemUpdateStrategy> strategies;
-    ItemManager itemManager;
+    private final Map<ItemType, ItemUpdateStrategy> strategies;
+    private final ItemManager itemManager;
 
     public ItemStrategies(ItemManager itemManager) {
         this.itemManager = itemManager;
@@ -22,32 +19,18 @@ public class ItemStrategies {
         strategies.put(ItemType.CONJURED, new AgedItemStrategy(itemManager));
     }
 
-    public void useStrategyFor(Item item) {
+    public void useStrategyFor(ItemBase item) {
         ItemUpdateStrategy strategy = strategies.get(item.getItemType());
         if (strategy != null) {
             strategy.update(item);
         } else {
-            handleItemDefault(item);
-            handleExpiredItem(item);
+            itemManager.handleItemDefault(item);
+            itemManager.handleExpiredItem(item);
         }
     }
 
-    public boolean itemHasStrategy(ItemType itemType) {
-        return strategies.containsKey(itemType);
+    public Map<ItemType, ItemUpdateStrategy> getStrategies() {
+        return strategies;
     }
 
-    private void handleItemDefault(Item item) {
-        if (item.getSellIn() > -1)
-        {
-            itemManager.reduceQualityBy(1, item);
-        }
-    }
-
-    private void handleExpiredItem(Item item) {
-        if (!itemHasStrategy(item.getItemType())
-            && item.getSellIn() < 0)
-        {
-            itemManager.reduceQualityBy(2, item);
-        }
-    }
 }

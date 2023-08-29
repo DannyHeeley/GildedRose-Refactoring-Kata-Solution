@@ -1,6 +1,6 @@
 package com.gildedrose.Strategies;
 
-import com.gildedrose.Items.Item;
+import com.gildedrose.Items.ItemBase;
 import com.gildedrose.Items.ItemType;
 
 public class SulfurasItemStrategy implements ItemUpdateStrategy {
@@ -9,7 +9,7 @@ public class SulfurasItemStrategy implements ItemUpdateStrategy {
         this.itemManager = itemManager;
     }
     @Override
-    public void update(Item item) {
+    public void update(ItemBase item) {
         if (item.getItemType().equals(ItemType.SULFURAS)) {
             item.setQuality(80);
             item.setSellIn(Integer.MAX_VALUE);

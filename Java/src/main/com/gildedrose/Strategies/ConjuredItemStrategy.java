@@ -1,6 +1,6 @@
 package com.gildedrose.Strategies;
 
-import com.gildedrose.Items.Item;
+import com.gildedrose.Items.ItemBase;
 import com.gildedrose.Items.ItemType;
 
 public class ConjuredItemStrategy implements ItemUpdateStrategy {
@@ -9,7 +9,7 @@ public class ConjuredItemStrategy implements ItemUpdateStrategy {
         this.itemManager = itemManager;
     }
     @Override
-    public void update(Item item) {
+    public void update(ItemBase item) {
         if (item.getItemType().equals(ItemType.CONJURED)) {
             itemManager.reduceQualityBy(2, item);
         }

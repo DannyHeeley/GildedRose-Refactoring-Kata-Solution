@@ -1,6 +1,6 @@
 package com.gildedrose;
 
-import com.gildedrose.Items.Item;
+import com.gildedrose.Items.ItemBase;
 import com.gildedrose.Items.ItemFactory;
 import com.gildedrose.Strategies.ItemManager;
 import com.gildedrose.Strategies.ItemStrategies;
@@ -246,7 +246,7 @@ class GildedRoseTest {
         ItemFactory itemFactory = new ItemFactory();
         ItemManager itemManager = new ItemManager();
         ItemStrategies itemStrategies = new ItemStrategies(itemManager);
-        Item[] items = new Item[]{itemFactory.newDefaultItem("Default", sellInValue, qualityValue)};
+        ItemBase[] items = new ItemBase[]{itemFactory.newDefaultItem("Default", sellInValue, qualityValue)};
         GildedRose app = new GildedRose(items, itemStrategies, itemManager);
         app.updateQuality();
         return app;
@@ -255,7 +255,7 @@ class GildedRoseTest {
         ItemFactory itemFactory = new ItemFactory();
         ItemManager itemManager = new ItemManager();
         ItemStrategies itemStrategies = new ItemStrategies(itemManager);
-        Item[] items = new Item[]{itemFactory.newAgedItem("Aged item", sellInValue, qualityValue)};
+        ItemBase[] items = new ItemBase[]{itemFactory.newAgedItem("Aged item", sellInValue, qualityValue)};
         GildedRose app = new GildedRose(items, itemStrategies, itemManager);
         app.updateQuality();
         return app;
@@ -265,7 +265,7 @@ class GildedRoseTest {
         ItemFactory itemFactory = new ItemFactory();
         ItemManager itemManager = new ItemManager();
         ItemStrategies itemStrategies = new ItemStrategies(itemManager);
-        Item[] items = new Item[]{itemFactory.newBackstagePass("Backstage Pass Item", sellInValue, qualityValue)};
+        ItemBase[] items = new ItemBase[]{itemFactory.newBackstagePass("Backstage Pass Item", sellInValue, qualityValue)};
         GildedRose app = new GildedRose(items, itemStrategies, itemManager);
         app.updateQuality();
         return app;
@@ -275,7 +275,7 @@ class GildedRoseTest {
         ItemFactory itemFactory = new ItemFactory();
         ItemManager itemManager = new ItemManager();
         ItemStrategies itemStrategies = new ItemStrategies(itemManager);
-        Item[] items = new Item[]{itemFactory.newConjuredItem("Conjured Item", sellInValue, qualityValue)};
+        ItemBase[] items = new ItemBase[]{itemFactory.newConjuredItem("Conjured Item", sellInValue, qualityValue)};
         GildedRose app = new GildedRose(items, itemStrategies, itemManager);
         app.updateQuality();
         return app;
@@ -285,7 +285,7 @@ class GildedRoseTest {
         ItemFactory itemFactory = new ItemFactory();
         ItemManager itemManager = new ItemManager();
         ItemStrategies itemStrategies = new ItemStrategies(itemManager);
-        Item[] items = new Item[]{itemFactory.newSulfurasItem("Sulfuras Item", sellInValue, qualityValue)};
+        ItemBase[] items = new ItemBase[]{itemFactory.newSulfurasItem("Sulfuras Item", sellInValue, qualityValue)};
         GildedRose app = new GildedRose(items, itemStrategies, itemManager);
         app.updateQuality();
         return app;
@@ -293,7 +293,7 @@ class GildedRoseTest {
     private GildedRose handleUpdateQualityConcert(int sellInValue, int qualityValue, String itemName, Concert concert) {
         ItemManager itemManager = new ItemManager();
         ItemStrategies itemStrategies = new ItemStrategies(itemManager);
-        Item[] items = new Item[]{new Item(itemName, sellInValue, qualityValue)};
+        ItemBase[] items = new ItemBase[]{new ItemBase(itemName, sellInValue, qualityValue)};
         GildedRose app = new GildedRose(items, itemStrategies, itemManager, concert);
         app.updateQuality();
         return app;
