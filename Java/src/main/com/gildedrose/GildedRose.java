@@ -1,20 +1,24 @@
 package com.gildedrose;
 
-public class GildedRose implements UniqueItems {
+import com.gildedrose.Items.Item;
+import com.gildedrose.Strategies.ItemStrategies;
+import com.gildedrose.Items.ItemType;
+
+public class GildedRose {
 
     Item[] items;
     Concert concert;
     ItemStrategies itemStrategies;
 
-    public GildedRose(Item[] items) {
+    public GildedRose(Item[] items, ItemStrategies itemStrategies) {
         this.items = items;
-        this.itemStrategies = new ItemStrategies();
+        this.itemStrategies = itemStrategies;
     }
 
-    public GildedRose(Item[] items, Concert concert) {
+    public GildedRose(Item[] items, ItemStrategies itemStrategies, Concert concert) {
         this.items = items;
+        this.itemStrategies = itemStrategies;
         this.concert = concert;
-        this.itemStrategies = new ItemStrategies();
     }
 
     public void updateQuality() {
@@ -30,27 +34,21 @@ public class GildedRose implements UniqueItems {
 
     private void handleItemsIfConcertHasEnded(Concert concert, Item item) {
         if (concert.isConcertOver(new GetDateTime())) {
-            reduceQualityBy(item.quality, item);
+            reduceQualityBy(item.getQuality(), item);
         }
     }
 
     public static void reduceQualityBy(int amount, Item item) {
-        if (!item.name.contains(SULFURAS)) {
-            if (item.quality < 50) {
-                item.quality = item.quality - amount;
+        if (!item.getName().contains(String.valueOf(ItemType.SULFURAS))) {
+            if (item.getQuality() < 50) {
+                item.setQuality(item.getQuality() - amount);
             } else {
-                item.quality = 49;
+                item.setQuality(49);
             }
         }
     }
 
-    public static void increaseQualityBy(int amount, Item item) {
-        if (item.quality < 50) {
-            item.quality = item.quality + amount;
-        }
-    }
-
     void reduceSellInByOne(Item item) {
-            item.sellIn = item.sellIn - 1;
+            item.setSellIn(item.getSellIn() - 1);
     }
 }
