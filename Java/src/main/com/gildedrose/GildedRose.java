@@ -1,6 +1,7 @@
 package com.gildedrose;
 
 import com.gildedrose.Items.Item;
+import com.gildedrose.Strategies.ItemManager;
 import com.gildedrose.Strategies.ItemStrategies;
 import com.gildedrose.Items.ItemType;
 
@@ -9,15 +10,18 @@ public class GildedRose {
     Item[] items;
     Concert concert;
     ItemStrategies itemStrategies;
+    ItemManager itemManager;
 
-    public GildedRose(Item[] items, ItemStrategies itemStrategies) {
+    public GildedRose(Item[] items, ItemStrategies itemStrategies, ItemManager itemManager) {
         this.items = items;
         this.itemStrategies = itemStrategies;
+        this.itemManager = itemManager;
     }
 
-    public GildedRose(Item[] items, ItemStrategies itemStrategies, Concert concert) {
+    public GildedRose(Item[] items, ItemStrategies itemStrategies, ItemManager itemManager, Concert concert) {
         this.items = items;
         this.itemStrategies = itemStrategies;
+        this.itemManager = itemManager;
         this.concert = concert;
     }
 
@@ -27,28 +31,15 @@ public class GildedRose {
                 handleItemsIfConcertHasEnded(concert, item);
             } else {
                 itemStrategies.useStrategyFor(item);
-                reduceSellInByOne(item);
+                itemManager.reduceSellInByOne(item);
             }
         }
     }
 
     private void handleItemsIfConcertHasEnded(Concert concert, Item item) {
         if (concert.isConcertOver(new GetDateTime())) {
-            reduceQualityBy(item.getQuality(), item);
+            itemManager.reduceQualityBy(item.getQuality(), item);
         }
     }
 
-    public static void reduceQualityBy(int amount, Item item) {
-        if (!item.getName().contains(String.valueOf(ItemType.SULFURAS))) {
-            if (item.getQuality() < 50) {
-                item.setQuality(item.getQuality() - amount);
-            } else {
-                item.setQuality(49);
-            }
-        }
-    }
-
-    void reduceSellInByOne(Item item) {
-            item.setSellIn(item.getSellIn() - 1);
-    }
 }

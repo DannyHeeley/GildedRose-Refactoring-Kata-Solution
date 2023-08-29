@@ -2,6 +2,7 @@ package com.gildedrose;
 
 import com.gildedrose.Items.Item;
 import com.gildedrose.Items.ItemFactory;
+import com.gildedrose.Strategies.ItemManager;
 import com.gildedrose.Strategies.ItemStrategies;
 import com.gildedrose.Items.ItemType;
 import org.junit.jupiter.api.Test;
@@ -243,51 +244,57 @@ class GildedRoseTest {
 
     private GildedRose handleUpdateQualityDefault(int sellInValue, int qualityValue) {
         ItemFactory itemFactory = new ItemFactory();
-        ItemStrategies itemStrategies = new ItemStrategies();
+        ItemManager itemManager = new ItemManager();
+        ItemStrategies itemStrategies = new ItemStrategies(itemManager);
         Item[] items = new Item[]{itemFactory.newDefaultItem("Default", sellInValue, qualityValue)};
-        GildedRose app = new GildedRose(items, itemStrategies);
+        GildedRose app = new GildedRose(items, itemStrategies, itemManager);
         app.updateQuality();
         return app;
     }
     private GildedRose handleUpdateQualityAged(int sellInValue, int qualityValue) {
         ItemFactory itemFactory = new ItemFactory();
-        ItemStrategies itemStrategies = new ItemStrategies();
+        ItemManager itemManager = new ItemManager();
+        ItemStrategies itemStrategies = new ItemStrategies(itemManager);
         Item[] items = new Item[]{itemFactory.newAgedItem("Aged item", sellInValue, qualityValue)};
-        GildedRose app = new GildedRose(items,itemStrategies);
+        GildedRose app = new GildedRose(items, itemStrategies, itemManager);
         app.updateQuality();
         return app;
     }
 
     private GildedRose handleUpdateQualityBackstagePass(int sellInValue, int qualityValue) {
         ItemFactory itemFactory = new ItemFactory();
-        ItemStrategies itemStrategies = new ItemStrategies();
+        ItemManager itemManager = new ItemManager();
+        ItemStrategies itemStrategies = new ItemStrategies(itemManager);
         Item[] items = new Item[]{itemFactory.newBackstagePass("Backstage Pass Item", sellInValue, qualityValue)};
-        GildedRose app = new GildedRose(items, itemStrategies);
+        GildedRose app = new GildedRose(items, itemStrategies, itemManager);
         app.updateQuality();
         return app;
     }
 
     private GildedRose handleUpdateQualityConjured(int sellInValue, int qualityValue) {
         ItemFactory itemFactory = new ItemFactory();
-        ItemStrategies itemStrategies = new ItemStrategies();
+        ItemManager itemManager = new ItemManager();
+        ItemStrategies itemStrategies = new ItemStrategies(itemManager);
         Item[] items = new Item[]{itemFactory.newConjuredItem("Conjured Item", sellInValue, qualityValue)};
-        GildedRose app = new GildedRose(items, itemStrategies);
+        GildedRose app = new GildedRose(items, itemStrategies, itemManager);
         app.updateQuality();
         return app;
     }
 
     private GildedRose handleUpdateQualitySulfuras(int sellInValue, int qualityValue) {
         ItemFactory itemFactory = new ItemFactory();
-        ItemStrategies itemStrategies = new ItemStrategies();
+        ItemManager itemManager = new ItemManager();
+        ItemStrategies itemStrategies = new ItemStrategies(itemManager);
         Item[] items = new Item[]{itemFactory.newSulfurasItem("Sulfuras Item", sellInValue, qualityValue)};
-        GildedRose app = new GildedRose(items, itemStrategies);
+        GildedRose app = new GildedRose(items, itemStrategies, itemManager);
         app.updateQuality();
         return app;
     }
     private GildedRose handleUpdateQualityConcert(int sellInValue, int qualityValue, String itemName, Concert concert) {
-        ItemStrategies itemStrategies = new ItemStrategies();
+        ItemManager itemManager = new ItemManager();
+        ItemStrategies itemStrategies = new ItemStrategies(itemManager);
         Item[] items = new Item[]{new Item(itemName, sellInValue, qualityValue)};
-        GildedRose app = new GildedRose(items, itemStrategies, concert);
+        GildedRose app = new GildedRose(items, itemStrategies, itemManager, concert);
         app.updateQuality();
         return app;
     }
