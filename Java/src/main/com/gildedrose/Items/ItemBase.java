@@ -1,36 +1,56 @@
 package com.gildedrose.Items;
 
 public class ItemBase {
-    private String name;
+    private final String itemName;
     private int sellIn;
     private int quality;
-    private ItemType itemType;
+    private final ItemType itemType;
 
-    public ItemBase(String name, int sellIn, int quality) {
-        this.setName(name);
-        this.setSellIn(sellIn);
-        this.setQuality(quality);
+    public ItemBase(String itemName, int sellIn, int quality) {
+        this.itemName = itemName;
+        this.sellIn = sellIn;
+        this.quality = quality;
         this.itemType = ItemType.DEFAULT;
     }
 
-    public ItemBase(String name, int sellIn, int quality, ItemType itemType) {
-        this.setName(name);
-        this.setSellIn(sellIn);
-        this.setQuality(quality);
+    public ItemBase(String itemName, int sellIn, int quality, ItemType itemType) {
+        this.itemName = itemName;
+        this.sellIn = sellIn;
+        this.quality = quality;
         this.itemType = itemType;
     }
 
-    @Override
-    public String toString() {
-        return this.getName() + ", " + this.getSellIn() + ", " + this.getQuality();
+    public void reduceSellInByOne() {
+        this.sellIn -= 1;
     }
 
-    public String getName() {
-        return name;
+    public void reduceQualityBy(int amount) {
+        if (!this.itemName.contains(String.valueOf(ItemType.SULFURAS))) {
+            if (this.quality < 50) {
+                this.quality -= amount;
+            } else {
+                this.quality = 49;
+            }
+        }
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void increaseQualityBasedOnRemainingDaysToSell() {
+        if (this.sellIn < 11 && this.sellIn > 5) {
+            this.increaseQualityBy(2);
+        }
+        if (this.sellIn < 6) {
+            this.increaseQualityBy(3);
+        }
+    }
+
+    public void increaseQualityBy(int amount) {
+        if (this.quality < 50) {
+            this.quality += amount;
+        }
+    }
+
+    public String getItemName() {
+        return itemName;
     }
 
     public int getSellIn() {
@@ -51,5 +71,9 @@ public class ItemBase {
 
     public ItemType getItemType() {
         return itemType;
+    }
+    @Override
+    public String toString() {
+        return itemName + ", " + sellIn + ", " + quality;
     }
 }

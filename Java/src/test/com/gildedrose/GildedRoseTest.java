@@ -2,7 +2,6 @@ package com.gildedrose;
 
 import com.gildedrose.Items.ItemBase;
 import com.gildedrose.Items.ItemFactory;
-import com.gildedrose.Strategies.ItemManager;
 import com.gildedrose.Strategies.ItemStrategies;
 import com.gildedrose.Items.ItemType;
 import org.junit.jupiter.api.Test;
@@ -16,7 +15,7 @@ class GildedRoseTest {
     @Test
     void itemsHaveNameValue() {
         GildedRose app = handleUpdateQualityDefault(10, 0);
-        assertEquals("Default", app.items[0].getName());
+        assertEquals("Default", app.items[0].getItemName());
     }
 
     @Test
@@ -35,7 +34,7 @@ class GildedRoseTest {
     void itemsHaveAllThreeValues() {
         GildedRose app = handleUpdateQualityDefault(10, 0);
         assertAll(
-            () -> assertNotNull(app.items[0].getName()),
+            () -> assertNotNull(app.items[0].getItemName()),
             () -> assertNotNull(app.items[0].getSellIn()),
             () -> assertNotNull(app.items[0].getQuality())
         );
@@ -244,57 +243,51 @@ class GildedRoseTest {
 
     private GildedRose handleUpdateQualityDefault(int sellInValue, int qualityValue) {
         ItemFactory itemFactory = new ItemFactory();
-        ItemManager itemManager = new ItemManager();
-        ItemStrategies itemStrategies = new ItemStrategies(itemManager);
+        ItemStrategies itemStrategies = new ItemStrategies();
         ItemBase[] items = new ItemBase[]{itemFactory.newDefaultItem("Default", sellInValue, qualityValue)};
-        GildedRose app = new GildedRose(items, itemStrategies, itemManager);
+        GildedRose app = new GildedRose(items, itemStrategies);
         app.updateQuality();
         return app;
     }
     private GildedRose handleUpdateQualityAged(int sellInValue, int qualityValue) {
         ItemFactory itemFactory = new ItemFactory();
-        ItemManager itemManager = new ItemManager();
-        ItemStrategies itemStrategies = new ItemStrategies(itemManager);
+        ItemStrategies itemStrategies = new ItemStrategies();
         ItemBase[] items = new ItemBase[]{itemFactory.newAgedItem("Aged item", sellInValue, qualityValue)};
-        GildedRose app = new GildedRose(items, itemStrategies, itemManager);
+        GildedRose app = new GildedRose(items, itemStrategies);
         app.updateQuality();
         return app;
     }
 
     private GildedRose handleUpdateQualityBackstagePass(int sellInValue, int qualityValue) {
         ItemFactory itemFactory = new ItemFactory();
-        ItemManager itemManager = new ItemManager();
-        ItemStrategies itemStrategies = new ItemStrategies(itemManager);
+        ItemStrategies itemStrategies = new ItemStrategies();
         ItemBase[] items = new ItemBase[]{itemFactory.newBackstagePass("Backstage Pass Item", sellInValue, qualityValue)};
-        GildedRose app = new GildedRose(items, itemStrategies, itemManager);
+        GildedRose app = new GildedRose(items, itemStrategies);
         app.updateQuality();
         return app;
     }
 
     private GildedRose handleUpdateQualityConjured(int sellInValue, int qualityValue) {
         ItemFactory itemFactory = new ItemFactory();
-        ItemManager itemManager = new ItemManager();
-        ItemStrategies itemStrategies = new ItemStrategies(itemManager);
+        ItemStrategies itemStrategies = new ItemStrategies();
         ItemBase[] items = new ItemBase[]{itemFactory.newConjuredItem("Conjured Item", sellInValue, qualityValue)};
-        GildedRose app = new GildedRose(items, itemStrategies, itemManager);
+        GildedRose app = new GildedRose(items, itemStrategies);
         app.updateQuality();
         return app;
     }
 
     private GildedRose handleUpdateQualitySulfuras(int sellInValue, int qualityValue) {
         ItemFactory itemFactory = new ItemFactory();
-        ItemManager itemManager = new ItemManager();
-        ItemStrategies itemStrategies = new ItemStrategies(itemManager);
+        ItemStrategies itemStrategies = new ItemStrategies();
         ItemBase[] items = new ItemBase[]{itemFactory.newSulfurasItem("Sulfuras Item", sellInValue, qualityValue)};
-        GildedRose app = new GildedRose(items, itemStrategies, itemManager);
+        GildedRose app = new GildedRose(items, itemStrategies);
         app.updateQuality();
         return app;
     }
     private GildedRose handleUpdateQualityConcert(int sellInValue, int qualityValue, String itemName, Concert concert) {
-        ItemManager itemManager = new ItemManager();
-        ItemStrategies itemStrategies = new ItemStrategies(itemManager);
+        ItemStrategies itemStrategies = new ItemStrategies();
         ItemBase[] items = new ItemBase[]{new ItemBase(itemName, sellInValue, qualityValue)};
-        GildedRose app = new GildedRose(items, itemStrategies, itemManager, concert);
+        GildedRose app = new GildedRose(items, itemStrategies, concert);
         app.updateQuality();
         return app;
     }

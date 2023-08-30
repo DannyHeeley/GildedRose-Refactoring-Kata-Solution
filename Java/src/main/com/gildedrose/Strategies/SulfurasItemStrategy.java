@@ -4,10 +4,6 @@ import com.gildedrose.Items.ItemBase;
 import com.gildedrose.Items.ItemType;
 
 public class SulfurasItemStrategy implements ItemUpdateStrategy {
-    ItemManager itemManager;
-    SulfurasItemStrategy(ItemManager itemManager) {
-        this.itemManager = itemManager;
-    }
     @Override
     public void update(ItemBase item) {
         if (item.getItemType().equals(ItemType.SULFURAS)) {
