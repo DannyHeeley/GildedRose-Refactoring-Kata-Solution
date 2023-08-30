@@ -1,12 +1,12 @@
 package com.gildedrose.Strategies;
 
-import com.gildedrose.Items.ItemBase;
-import com.gildedrose.Items.ItemType;
+import com.gildedrose.Items.Aged;
+import com.gildedrose.Items.ItemInterface;
 
 public class AgedItemStrategy implements ItemUpdateStrategy {
     @Override
-    public void update(ItemBase item) {
-        if (item.getItemType().equals(ItemType.AGED)) {
+    public void update(ItemInterface item) {
+        if (item instanceof Aged) {
             item.increaseQualityBasedOnRemainingDaysToSell();
         }
     }

@@ -1,12 +1,9 @@
 package com.gildedrose;
 
-import com.gildedrose.Items.ItemBase;
+import com.gildedrose.Items.ItemInterface;
 import com.gildedrose.Items.ItemFactory;
 import com.gildedrose.Strategies.ItemStrategies;
-import com.gildedrose.Items.ItemType;
 import org.junit.jupiter.api.Test;
-
-import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -70,61 +67,44 @@ class GildedRoseTest {
     @Test
     void itemQualityIsNeverMinusValue() {
         GildedRose app = handleUpdateQualityDefault(0, 0);
-        assertEquals(ItemType.DEFAULT, app.items[0].getItemType());
+        System.out.println(app.items[0].getQuality());
+        assertTrue(app.items[0].getQuality() >= 0);
     }
 
     @Test
     void agedItemQualityIsNeverMinusValue() {
         GildedRose app = handleUpdateQualityAged(0, -1);
-        assertAll(
-            () -> assertTrue(app.items[0].getQuality() >= 0),
-            () -> assertEquals(ItemType.AGED, app.items[0].getItemType())
-        );
+        assertTrue(app.items[0].getQuality() >= 0);
     }
 
     @Test
     void agedQualityIncreasesEachDay() {
         GildedRose app = handleUpdateQualityAged(0, 0);
-        assertAll(
-            () -> assertTrue(app.items[0].getQuality() > 0),
-            () -> assertEquals(ItemType.AGED, app.items[0].getItemType())
-        );
+        assertTrue(app.items[0].getQuality() > 0);
     }
 
     @Test
     void agedQualityIncreasesBy2IfDaysToSellIs6() {
         GildedRose app = handleUpdateQualityAged(6, 0);
-        assertAll(
-            () -> assertEquals(2, app.items[0].getQuality()),
-            () -> assertEquals(ItemType.AGED, app.items[0].getItemType())
-        );
+        assertEquals(2, app.items[0].getQuality());
     }
 
     @Test
     void agedQualityIncreasesBy2IfDaysToSellIs10() {
         GildedRose app = handleUpdateQualityAged(10, 0);
-        assertAll(
-            () -> assertEquals(2, app.items[0].getQuality()),
-            () -> assertEquals(ItemType.AGED, app.items[0].getItemType())
-        );
+        assertEquals(2, app.items[0].getQuality());
     }
 
     @Test
     void agedQualityIncreasesBy3IfDaysToSellIs0() {
         GildedRose app = handleUpdateQualityAged(0, 0);
-        assertAll(
-            () -> assertEquals(3, app.items[0].getQuality()),
-            () -> assertEquals(ItemType.AGED, app.items[0].getItemType())
-        );
+        assertEquals(3, app.items[0].getQuality());
     }
 
     @Test
     void agedQualityIncreasesBy3IfDaysToSellIs5() {
         GildedRose app = handleUpdateQualityAged(5, 0);
-        assertAll(
-            () -> assertEquals(3, app.items[0].getQuality()),
-            () -> assertEquals(ItemType.AGED, app.items[0].getItemType())
-        );
+        assertEquals(3, app.items[0].getQuality());
     }
 
     @Test
@@ -137,80 +117,54 @@ class GildedRoseTest {
     void qualityOfAgedItemIsNeverMoreThan50() {
         GildedRose app = handleUpdateQualityAged(0, 50);
         assertEquals(50, app.items[0].getQuality());
-        assertAll(
-            () -> assertEquals(50, app.items[0].getQuality()),
-            () -> assertEquals(ItemType.AGED, app.items[0].getItemType())
-        );
     }
 
     @Test
     void sulfurasSellInIsAlwaysPositiveValue() {
         GildedRose app = handleUpdateQualitySulfuras(1, 80);
-        assertAll(
-            () -> assertTrue(app.items[0].getSellIn() >= 0),
-            () -> assertEquals(ItemType.SULFURAS, app.items[0].getItemType())
-        );
+        assertTrue(app.items[0].getSellIn() >= 0);
     }
 
     @Test
     void sulfurasQualityIsAlways80() {
         GildedRose app = handleUpdateQualitySulfuras(0, 55);
-        assertAll(
-            () -> assertEquals(80, app.items[0].getQuality()),
-            () -> assertEquals(ItemType.SULFURAS, app.items[0].getItemType())
-        );
+        assertEquals(80, app.items[0].getQuality());
     }
 
     @Test
     void sulfurasDoesNotDecreaseInQuality() {
         GildedRose app = handleUpdateQualitySulfuras(0, 80);
-        assertAll(
-            () -> assertEquals(80, app.items[0].getQuality()),
-            () -> assertEquals(ItemType.SULFURAS, app.items[0].getItemType())
-        );
+        assertEquals(80, app.items[0].getQuality());
     }
 
     @Test
     void backstagePassQualityIncreasesBy2IfDaysToSellIs6() {
         GildedRose app = handleUpdateQualityBackstagePass(6, 0);
-        assertAll(
-            () -> assertEquals(2, app.items[0].getQuality()),
-            () -> assertEquals(ItemType.BACKSTAGE_PASSES, app.items[0].getItemType())
-        );
+        assertEquals(2, app.items[0].getQuality());
     }
 
     @Test
     void backstagePassQualityIncreasesBy2IfDaysToSellIs10() {
         GildedRose app = handleUpdateQualityBackstagePass(10, 0);
-        assertAll(
-            () -> assertEquals(2, app.items[0].getQuality()),
-            () -> assertEquals(ItemType.BACKSTAGE_PASSES, app.items[0].getItemType())
-        );
+        assertEquals(2, app.items[0].getQuality());
     }
 
     @Test
     void backstagePassQualityIncreasesBy3IfDaysToSellIs0() {
         GildedRose app = handleUpdateQualityBackstagePass(0, 0);
-        System.out.println(Arrays.toString(app.items));
         assertEquals(3, app.items[0].getQuality());
     }
 
     @Test
     void backstagePassQualityIncreasesBy3IfDaysToSellIs5() {
         GildedRose app = handleUpdateQualityBackstagePass(5, 0);
-        assertAll(
-            () -> assertEquals(3, app.items[0].getQuality()),
-            () -> assertEquals(ItemType.BACKSTAGE_PASSES, app.items[0].getItemType())
-        );
+        assertEquals(3, app.items[0].getQuality());
     }
 
     @Test
     void backstagePassQualityDoesNotExceed50() {
         GildedRose app = handleUpdateQualityBackstagePass(10, 50);
-        assertAll(
-            () -> assertEquals(50, app.items[0].getQuality()),
-            () -> assertEquals(ItemType.BACKSTAGE_PASSES, app.items[0].getItemType())
-        );
+        assertEquals(50, app.items[0].getQuality());
     }
 
     @Test
@@ -234,7 +188,7 @@ class GildedRoseTest {
     @Test
     void qualityDropsTo0AfterTheConcert() {
         Concert concert = new Concert("Madness", "01/07/2023", "13:00:00");
-        GildedRose app = handleUpdateQualityConcert(0, 10, "foo", concert);
+        GildedRose app = handleUpdateQualityConcert(0, 10, concert);
         assertAll (
             () -> assertTrue(concert.isConcertOver(new GetDateTime())),
             () -> assertEquals(0, app.items[0].getQuality())
@@ -244,7 +198,7 @@ class GildedRoseTest {
     private GildedRose handleUpdateQualityDefault(int sellInValue, int qualityValue) {
         ItemFactory itemFactory = new ItemFactory();
         ItemStrategies itemStrategies = new ItemStrategies();
-        ItemBase[] items = new ItemBase[]{itemFactory.newDefaultItem("Default", sellInValue, qualityValue)};
+        ItemInterface[] items = new ItemInterface[]{itemFactory.newDefaultItem("Default", sellInValue, qualityValue)};
         GildedRose app = new GildedRose(items, itemStrategies);
         app.updateQuality();
         return app;
@@ -252,7 +206,7 @@ class GildedRoseTest {
     private GildedRose handleUpdateQualityAged(int sellInValue, int qualityValue) {
         ItemFactory itemFactory = new ItemFactory();
         ItemStrategies itemStrategies = new ItemStrategies();
-        ItemBase[] items = new ItemBase[]{itemFactory.newAgedItem("Aged item", sellInValue, qualityValue)};
+        ItemInterface[] items = new ItemInterface[]{itemFactory.newAgedItem("Aged item", sellInValue, qualityValue)};
         GildedRose app = new GildedRose(items, itemStrategies);
         app.updateQuality();
         return app;
@@ -261,7 +215,7 @@ class GildedRoseTest {
     private GildedRose handleUpdateQualityBackstagePass(int sellInValue, int qualityValue) {
         ItemFactory itemFactory = new ItemFactory();
         ItemStrategies itemStrategies = new ItemStrategies();
-        ItemBase[] items = new ItemBase[]{itemFactory.newBackstagePass("Backstage Pass Item", sellInValue, qualityValue)};
+        ItemInterface[] items = new ItemInterface[]{itemFactory.newBackstagePass("Backstage Pass Item", sellInValue, qualityValue)};
         GildedRose app = new GildedRose(items, itemStrategies);
         app.updateQuality();
         return app;
@@ -270,7 +224,7 @@ class GildedRoseTest {
     private GildedRose handleUpdateQualityConjured(int sellInValue, int qualityValue) {
         ItemFactory itemFactory = new ItemFactory();
         ItemStrategies itemStrategies = new ItemStrategies();
-        ItemBase[] items = new ItemBase[]{itemFactory.newConjuredItem("Conjured Item", sellInValue, qualityValue)};
+        ItemInterface[] items = new ItemInterface[]{itemFactory.newConjuredItem("Conjured Item", sellInValue, qualityValue)};
         GildedRose app = new GildedRose(items, itemStrategies);
         app.updateQuality();
         return app;
@@ -279,14 +233,15 @@ class GildedRoseTest {
     private GildedRose handleUpdateQualitySulfuras(int sellInValue, int qualityValue) {
         ItemFactory itemFactory = new ItemFactory();
         ItemStrategies itemStrategies = new ItemStrategies();
-        ItemBase[] items = new ItemBase[]{itemFactory.newSulfurasItem("Sulfuras Item", sellInValue, qualityValue)};
+        ItemInterface[] items = new ItemInterface[]{itemFactory.newSulfurasItem("Sulfuras Item", sellInValue, qualityValue)};
         GildedRose app = new GildedRose(items, itemStrategies);
         app.updateQuality();
         return app;
     }
-    private GildedRose handleUpdateQualityConcert(int sellInValue, int qualityValue, String itemName, Concert concert) {
+    private GildedRose handleUpdateQualityConcert(int sellInValue, int qualityValue, Concert concert) {
+        ItemFactory itemFactory = new ItemFactory();
         ItemStrategies itemStrategies = new ItemStrategies();
-        ItemBase[] items = new ItemBase[]{new ItemBase(itemName, sellInValue, qualityValue)};
+        ItemInterface[] items = new ItemInterface[]{itemFactory.newDefaultItem("Default Item", sellInValue, qualityValue)};
         GildedRose app = new GildedRose(items, itemStrategies, concert);
         app.updateQuality();
         return app;

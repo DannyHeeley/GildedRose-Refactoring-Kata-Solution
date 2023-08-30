@@ -1,24 +1,25 @@
 package com.gildedrose;
 
 import com.gildedrose.Items.ItemBase;
+import com.gildedrose.Items.ItemInterface;
 import com.gildedrose.Strategies.ItemStrategies;
 
 public class GildedRose {
-    ItemBase[] items;
+    ItemInterface[] items;
     Concert concert;
     ItemStrategies itemStrategies;
 
-    public GildedRose(ItemBase[] items, ItemStrategies itemStrategies) {
+    public GildedRose(ItemInterface[] items, ItemStrategies itemStrategies) {
         this.items = items;
         this.itemStrategies = itemStrategies;
     }
-    public GildedRose(ItemBase[] items, ItemStrategies itemStrategies, Concert concert) {
+    public GildedRose(ItemInterface[] items, ItemStrategies itemStrategies, Concert concert) {
         this.items = items;
         this.itemStrategies = itemStrategies;
         this.concert = concert;
     }
     public void updateQuality() {
-        for (ItemBase item : items) {
+        for (ItemInterface item : items) {
             if (concert != null) {
                 handleItemsIfConcertHasEnded(concert, item);
             } else {
@@ -27,7 +28,7 @@ public class GildedRose {
             }
         }
     }
-    private void handleItemsIfConcertHasEnded(Concert concert, ItemBase item) {
+    private void handleItemsIfConcertHasEnded(Concert concert, ItemInterface item) {
         if (concert.isConcertOver(new GetDateTime())) {
             item.reduceQualityBy(item.getQuality());
         }
