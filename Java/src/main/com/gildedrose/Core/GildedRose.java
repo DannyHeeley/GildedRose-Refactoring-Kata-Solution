@@ -1,13 +1,15 @@
-package com.gildedrose;
+package com.gildedrose.Core;
 
+import com.gildedrose.Core.Concert;
+import com.gildedrose.Core.GetDateTime;
 import com.gildedrose.Items.ItemBase;
 import com.gildedrose.Items.ItemInterface;
-import com.gildedrose.Strategies.ItemStrategies;
+import com.gildedrose.ItemStrategies.ItemStrategies;
 
 public class GildedRose {
-    ItemInterface[] items;
-    Concert concert;
-    ItemStrategies itemStrategies;
+    private ItemInterface[] items;
+    private Concert concert;
+    private final ItemStrategies itemStrategies;
 
     public GildedRose(ItemInterface[] items, ItemStrategies itemStrategies) {
         this.items = items;
@@ -32,5 +34,18 @@ public class GildedRose {
         if (concert.isConcertOver(new GetDateTime())) {
             item.reduceQualityBy(item.getQuality());
         }
+    }
+
+    public ItemInterface[] getItems() {
+        return items;
+    }
+    public void setItems(ItemInterface[] items) {
+        this.items = items;
+    }
+    public Concert getConcert() {
+        return concert;
+    }
+    public void setConcert(Concert concert) {
+        this.concert = concert;
     }
 }

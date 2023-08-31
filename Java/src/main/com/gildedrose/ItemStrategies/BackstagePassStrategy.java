@@ -1,14 +1,13 @@
-package com.gildedrose.Strategies;
+package com.gildedrose.ItemStrategies;
 
 import com.gildedrose.Items.BackstagePass;
-import com.gildedrose.Items.ItemBase;
 import com.gildedrose.Items.ItemInterface;
 
-public class BackstagePassStrategy implements ItemUpdateStrategy {
+public class BackstagePassStrategy implements StrategyInterface {
     @Override
     public void update(ItemInterface item) {
         if (item instanceof BackstagePass) {
-            item.increaseQualityBasedOnRemainingDaysToSell();
+            increaseQualityBasedOnRemainingDaysToSell(item);
         }
     }
 }

@@ -1,10 +1,9 @@
-package com.gildedrose.Strategies;
+package com.gildedrose.ItemStrategies;
 
-import com.gildedrose.Items.ItemBase;
 import com.gildedrose.Items.ItemInterface;
 import com.gildedrose.Items.Sulfuras;
 
-public class SulfurasItemStrategy implements ItemUpdateStrategy {
+public class SulfurasItemStrategy implements StrategyInterface {
     @Override
     public void update(ItemInterface item) {
         if (item instanceof Sulfuras) {

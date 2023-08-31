@@ -8,7 +8,6 @@ public interface ItemInterface {
     int getSellIn();
     String getItemName();
     void increaseQualityBy(int amount);
-    void increaseQualityBasedOnRemainingDaysToSell();
     void reduceQualityBy(int amount);
     void reduceSellInByOne();
 }

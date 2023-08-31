@@ -1,10 +1,9 @@
-package com.gildedrose.Strategies;
+package com.gildedrose.ItemStrategies;
 
 import com.gildedrose.Items.Conjured;
-import com.gildedrose.Items.ItemBase;
 import com.gildedrose.Items.ItemInterface;
 
-public class ConjuredItemStrategy implements ItemUpdateStrategy {
+public class ConjuredItemStrategy implements StrategyInterface {
     @Override
     public void update(ItemInterface item) {
         if (item instanceof Conjured) {

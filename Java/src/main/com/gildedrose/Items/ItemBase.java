@@ -9,25 +9,17 @@ public class ItemBase implements ItemInterface {
         this.sellIn = sellIn;
         this.quality = quality;
     }
-
     public void reduceSellInByOne() {
         this.sellIn -= 1;
     }
     public void reduceQualityBy(int amount) {
-        if (!(this instanceof Sulfuras)) {
-            if (this.quality < 50) {
-                this.quality -= amount;
-            } else {
-                this.quality = 49;
-            }
-        }
-    }
-    public void increaseQualityBasedOnRemainingDaysToSell() {
-        if (this.sellIn < 11 && this.sellIn > 5) {
-            this.increaseQualityBy(2);
-        }
-        if (this.sellIn < 6) {
-            this.increaseQualityBy(3);
+        if (!(this instanceof Sulfuras) && (quality - amount >= 0)) {
+                if (this.quality < 50) {
+                    this.quality -= amount;
+                } else {
+                    this.quality = 49;
+                }
+
         }
     }
     public void increaseQualityBy(int amount) {

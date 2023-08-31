@@ -1,4 +1,4 @@
-package com.gildedrose;
+package com.gildedrose.Core;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
